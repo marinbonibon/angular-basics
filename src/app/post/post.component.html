@@ -1,0 +1,16 @@
+<div class="post">
+  <h2 appStyle="red">{{post.title}}</h2>
+  <p>{{post.text}}</p>
+  <button (click)="removePost()">&times;</button>
+  <ng-content></ng-content>
+  <div>
+    <h3>{{localCounter.counter}}</h3>
+    <button (click)="localCounter.increase()">+</button>
+    <button (click)="localCounter.decrease()">-</button>
+  </div>
+  <div>
+    <h3>{{appCounter.counter}}</h3>
+    <button (click)="appCounter.increase()">+</button>
+    <button (click)="appCounter.decrease()">-</button>
+  </div>
+</div>
