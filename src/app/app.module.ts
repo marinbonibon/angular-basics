@@ -11,6 +11,7 @@ import { ExMarksPipe } from './pipes/ex-marks.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import {PipesModuleModule} from './pipes-module/pipes-module.module';
 import { Style2Directive } from './directives/style2.directive';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { Style2Directive } from './directives/style2.directive';
   imports: [
     BrowserModule,
     FormsModule,
-    PipesModuleModule
+    PipesModuleModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -7,17 +7,22 @@
   <input type="text" [(ngModel)]="search">
   <button class="btn" (click)="searchField = 'title'">Title</button>
   <button class="btn" (click)="searchField = 'text'">Text</button>
-  <app-post *ngFor="let p of posts | filter: search : searchField"
-            [post]="p"
-            (removeId)="removePost($event)"
-  >
-    <div #info>
-      <small *ngIf="p.title.length < 10; else big">Short</small>
-      <ng-template #big>
-        <small>Long</small>
-      </ng-template>
-    </div>
-  </app-post>
+  <hr>
+  <div *ngIf="posts.length; else noPosts">
+    <app-post *ngFor="let p of posts | filter: search : searchField"
+              [post]="p"
+              (removeId)="removePost($event)"
+    >
+      <div #info>
+        <small *ngIf="p.title.length < 10; else big">Short</small>
+        <ng-template #big>
+          <small>Long</small>
+        </ng-template>
+      </div>
+    </app-post>
+  </div>
+  <ng-template #noPosts>No posts</ng-template>
+
   <hr>
   <button (click)="isVisible = !isVisible">Toggle</button>
   <div *appIfnot="!isVisible" class="wrap">

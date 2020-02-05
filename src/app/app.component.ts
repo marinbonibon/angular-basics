@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {CounterService} from './services/counter.service';
+import {PostsService} from './services/posts.service';
 
 export interface Post {
   title: string;
-  text: string;
+  body: string;
   id?: number;
 }
 
@@ -13,12 +14,8 @@ export interface Post {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  posts: Post[] = [
-    {title: 'fffff', text: 'dfdffg', id: 1},
-    {title: 'fgfgfg', text: 'gfgfdd', id: 2},
-    {title: 'Post3', text: 'Lorem ipsum', id: 3}
-  ];
+export class AppComponent implements OnInit {
+  posts: Post[] = [];
 
   isVisible = true;
 
@@ -32,14 +29,26 @@ export class AppComponent {
       resolve('Promise resolved');
       }, 2000));
 
-  constructor(private counterService: CounterService) {
+  constructor(private counterService: CounterService,
+              private postsService: PostsService) {
+  }
+
+  ngOnInit(): void {
+    this.fetchPosts();
   }
 
   updatePosts(post) {
     this.posts.unshift(post);
   }
 
+  fetchPosts() {
+    this.postsService.fetchPosts()
+      .subscribe(posts => this.posts = posts);
+  }
+
   removePost(id: number) {
-    this.posts = this.posts.filter(el => el.id !== id);
+    this.postsService.removePost(id)
+      .subscribe(() => this.posts = this.posts.filter(el => el.id !== id));
+
   }
 }
